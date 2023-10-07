@@ -10,4 +10,6 @@ public interface ProductDao {
     Integer createProduct(ProductRequest productRequest);
 
     Void updateProduct(Integer productId, ProductRequest productRequest);
+
+    Void deleteProduct(Integer productId);
 }
