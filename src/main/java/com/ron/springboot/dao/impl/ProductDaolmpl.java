@@ -1,6 +1,5 @@
 package com.ron.springboot.dao.impl;
 
-import com.ron.springboot.constant.ProductCategory;
 import com.ron.springboot.dao.ProductDao;
 import com.ron.springboot.dto.ProductQueryParams;
 import com.ron.springboot.dto.ProductRequest;
@@ -13,8 +12,6 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 
-import javax.validation.constraints.Null;
-import java.time.DayOfWeek;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -42,6 +39,8 @@ public class ProductDaolmpl implements ProductDao {
             sql = sql + " AND product_name LIKE :search";
             map.put("search", "%" + productQueryParams.getSearch() + "%");
         }
+
+        sql = sql + " ORDER BY " + productQueryParams.getOrderBy() + " " + productQueryParams.getSort();
 
         List<Product> productList = namedParameterJdbcTemplate.query(sql, map, new ProductRowMapper());
 
