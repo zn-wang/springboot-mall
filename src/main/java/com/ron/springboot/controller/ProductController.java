@@ -1,6 +1,7 @@
 package com.ron.springboot.controller;
 
 import com.ron.springboot.constant.ProductCategory;
+import com.ron.springboot.dto.ProductQueryParams;
 import com.ron.springboot.dto.ProductRequest;
 import com.ron.springboot.model.Product;
 import com.ron.springboot.service.ProductService;
@@ -22,8 +23,12 @@ public class ProductController {
     public ResponseEntity<List<Product>> getProducts(
             @RequestParam(required = false) ProductCategory category,
             @RequestParam(required = false) String search
-            ) {
-        List<Product> productList = productService.getProducts(category, search);
+    ) {
+        ProductQueryParams productQueryParams = new ProductQueryParams();
+        productQueryParams.setCategory(category);
+        productQueryParams.setSearch(search);
+
+        List<Product> productList = productService.getProducts(productQueryParams);
 
         return ResponseEntity.status(HttpStatus.OK).body(productList);
     }

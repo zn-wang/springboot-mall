@@ -2,6 +2,7 @@ package com.ron.springboot.dao.impl;
 
 import com.ron.springboot.constant.ProductCategory;
 import com.ron.springboot.dao.ProductDao;
+import com.ron.springboot.dto.ProductQueryParams;
 import com.ron.springboot.dto.ProductRequest;
 import com.ron.springboot.model.Product;
 import com.ron.springboot.rowmapper.ProductRowMapper;
@@ -26,20 +27,20 @@ public class ProductDaolmpl implements ProductDao {
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @Override
-    public List<Product> getProducts(ProductCategory category, String search) {
+    public List<Product> getProducts(ProductQueryParams productQueryParams) {
         String sql = "SELECT product_id, product_name, category, image_url, price, stock, description, created_date, last_modified_date " +
                         "FROM product WHERE 1=1"; //WHERE 1=1 可以讓後面的 Code 拼接
 
         Map<String, Object> map = new HashMap<>();
 
-        if (category != null) {
+        if (productQueryParams.getCategory() != null) {
             sql = sql + " AND category = :category";
-            map.put("category", category.name());
+            map.put("category", productQueryParams.getCategory().name());
         }
 
-        if (search != null) {
+        if (productQueryParams.getSearch() != null) {
             sql = sql + " AND product_name LIKE :search";
-            map.put("search", "%" + search + "%");
+            map.put("search", "%" + productQueryParams.getSearch() + "%");
         }
 
         List<Product> productList = namedParameterJdbcTemplate.query(sql, map, new ProductRowMapper());
