@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.ron</groupId>
-	<artifactId>Springboot</artifactId>
+	<artifactId>Springbootmall</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Springboot</name>
 	<description>Springboot</description>
